@@ -2,7 +2,6 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -24,7 +23,6 @@ public class SimpleCalculator implements ActionListener {
   private JButton fourButton, fiveButton, sixButton, multiplyButton;
   private JButton oneButton, twoButton, threeButton, subtractionButton;
   private JButton zeroButton, dotButton, deleteButton, additionButton;
-  private ArrayList<JButton> buttons;
 
   private final static int externalBorder = 10;
   private final static int margin = 5;
@@ -56,6 +54,8 @@ public class SimpleCalculator implements ActionListener {
 
     engine = new ScriptEngineManager().getEngineByExtension("js");
 
+    configureButtons();
+
     display = new JTextField();
     display.setBounds(externalBorder, externalBorder, xText, yText);
     display.setText("0");
@@ -65,8 +65,16 @@ public class SimpleCalculator implements ActionListener {
     display.setHorizontalAlignment(SwingConstants.TRAILING);
     display.setFocusable(false);
 
-    buttons = new ArrayList<JButton>();
+    f.setJMenuBar(menuBar);
 
+    f.add(display);
+
+    f.setSize(xScreen, yScreen);
+    f.setLayout(null);
+    f.setVisible(true);
+  }
+
+  public void configureButtons() {
     sevenButton = new JButton("7");
     eightButton = new JButton("8");
     nineButton = new JButton("9");
@@ -160,11 +168,6 @@ public class SimpleCalculator implements ActionListener {
     additionButton.setBounds(externalBorder + (3 * xButton) + (3 * margin), yButtonsFourthRow,
         xButton, yButton);
 
-    f.setJMenuBar(menuBar);
-
-    f.add(display);
-
-
     f.add(sevenButton);
     f.add(eightButton);
     f.add(nineButton);
@@ -185,10 +188,6 @@ public class SimpleCalculator implements ActionListener {
     f.add(dotButton);
     f.add(deleteButton);
     f.add(additionButton);
-
-    f.setSize(xScreen, yScreen);
-    f.setLayout(null);
-    f.setVisible(true);
   }
 
   public void actionPerformed(ActionEvent e) {
